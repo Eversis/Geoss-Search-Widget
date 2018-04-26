@@ -35,12 +35,13 @@ Geoss Search Widget:
     - for Chrome - install [Allow-Control-Allow-Origin add-on](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi),
     - for Safari - select "Disable Cross-Origin Restrictions" from the developers console,
     - *alternatively* install XAMPP and put the package to the server,
-2. Download the [package](http://geoss.sit.esaportal.eu/documents/20181/0/Geoss+Search+Widget/7f2034a2-b5e3-4df2-9467-fd300dea85d0),
-3. Add access-key to Geoss.accessKey in configuration (in sitecustom.js or via console),
+2. Download the [package](http://geoss.sit.esaportal.eu/documents/20181/0/Geoss+Search+Widget/7f2034a2-b5e3-4df2-9467-fd300dea85d0), extract it and open index.html,
+3. Add access key (provided at the workshop or obtained from [here](http://geoss.sit.esaportal.eu/register-widget)) to Geoss.accessKey in configuration (inside js/sitecustom.js or via web console),
 4. Try out searching, map interactions, custom download, WMS layers,
 5. Take a closer look at Widget API:
     - callbacks:
     ```javascript
+    Geoss.initSearchBarCallback();
     Geoss.actionBeforeRequest();
     Geoss.successCallback(data);
     Geoss.failureCallback(error);
