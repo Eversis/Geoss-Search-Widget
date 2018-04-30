@@ -31,31 +31,45 @@ Geoss Search Widget:
 
 ## Project Demo - Hands On!
 1. Enable Cross-Origin Resource Sharing (CORS):
-    - for Firefox - install [CORS Everywhere add-on](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/),
-    - for Chrome - install [Allow-Control-Allow-Origin add-on](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi),
-    - for Safari - select "Disable Cross-Origin Restrictions" from the developers console,
+    - for Firefox - install [CORS Everywhere add-on](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/) and apply following rules:
+      ```
+      .+\.esaportal\.eu\/.+
+      .+\.geodab\.eu\/.+
+      ```
+    - for Chrome - install [Allow-Control-Allow-Origin add-on](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi) and apply following rules:
+      ```
+      http://*.esaportal.eu/*
+      http://*.geodab.eu/*
+      ```
+    - for Safari - select "Disable Cross-Origin Restrictions" from the Develop Menu; If you don’t see the Develop menu, choose Safari > Preferences, click Advanced and select "Show Develop menu in menu bar",
     - *alternatively* install XAMPP and put the package to the server,
 2. Download the [package](http://geoss.sit.esaportal.eu/documents/20181/0/Geoss+Search+Widget/7f2034a2-b5e3-4df2-9467-fd300dea85d0), extract it and open index.html,
 3. Add access key (provided at the workshop or obtained from [here](http://geoss.sit.esaportal.eu/register-widget)) to Geoss.accessKey in configuration (inside js/sitecustom.js or via web console),
 4. Try out searching, map interactions, custom download, WMS layers,
 5. Take a closer look at Widget API:
-    - callbacks:
-    ```javascript
-    Geoss.initSearchBarCallback();
-    Geoss.actionBeforeRequest();
-    Geoss.successCallback(data);
-    Geoss.failureCallback(error);
-    Geoss.metadataCallback();
-    Geoss.downloadBoxCallback();
-    Geoss.addBBoxInteraction(map);
-    Geoss.addLayerCallback(layer, checkbox);
-    Geoss.synchronizeLayerList();
-    ```
-    - filling the searchform via script:
+    - available callbacks:
+      ```
+      Geoss.initSearchBarCallback();
+      Geoss.actionBeforeRequest();
+      Geoss.successCallback(data);
+      Geoss.failureCallback(error);
+      Geoss.metadataCallback();
+      Geoss.downloadBoxCallback();
+      Geoss.addBBoxInteraction(map);
+      Geoss.addLayerCallback(layer, checkbox);
+      Geoss.synchronizeLayerList();
+      ```
+      Example - greying out screen when waiting for server response:
+      ```javascript
+      Geoss.actionBeforeRequest = function(){$('.main-canvas').css("opacity", 0.5)}
+      Geoss.successCallback = function(){$('.main-canvas').css("opacity", 1)}
+      Geoss.failureCallback = function(){$('.main-canvas').css("opacity", 1)}
+      Geoss.metadataCallback = function(){$('.main-canvas').css("opacity", 1)}
+      ```
+    - filling the search form via script:
     ```javascript
     var params = new Object();
     params.query = "Water";
-    params.sources = "geodabgbifid"
     params.aoiOption = "Coordinates";
     params.aoiBoundingBox = "-100,-60,0,20";
     params.aoiRelation = "bbox_contains";
